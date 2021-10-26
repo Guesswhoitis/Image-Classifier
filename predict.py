@@ -5,33 +5,35 @@ import numpy as np
 from os import listdir
 from os.path import isfile, join
 
+image_size_x=300
+image_size_y=300
+
 model = tf.keras.models.load_model('model.pth',compile = True) # loads the model
 
 testDataDir = "./dataToPredict" #testing data directory
 
-f = open("labels.txt", "r")
+f = open("labels.txt", "r") #opens the label file
 
 labels = []
 
-line = f.readline().split(",")
+line = f.readline().split(",") #splits the labels
 
 print(len(line))
 
 for val in line:
-    labels.append(val);
+    labels.append(val); # adds to label array
 
 print(labels)
-image_size_x=300
-image_size_y=300
 
-onlyfiles = [f for f in listdir(testDataDir) if isfile(join(testDataDir, f))]
+
+onlyfiles = [f for f in listdir(testDataDir) if isfile(join(testDataDir, f))] # gets all file names in the directory
 print(onlyfiles)
 
-for f in onlyfiles:
-    image = tf.keras.preprocessing.image.load_img(testDataDir+"/"+f)
-    input_arr = tf.keras.preprocessing.image.img_to_array(image)
+for f in onlyfiles: 
+    image = tf.keras.preprocessing.image.load_img(testDataDir+"/"+f) # should load image
+    input_arr = tf.keras.preprocessing.image.img_to_array(image) 
     input_arr = np.array([input_arr])
-    predictions = model.predict(input_arr)
+    predictions = model.predict(input_arr) #should predict image
     print(predictions)
     preds = np.argmax(predictions, axis=1)
     print(preds)

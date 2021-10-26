@@ -4,7 +4,7 @@ import tensorflow as tf
 
 model = tf.keras.models.load_model('model.pth') # loads the model
 
-testDataDir = "./trainData" #testing data directory
+testDataDir = "./dataToEvaluate" #evaluating data directory
 
 image_size_x=300
 image_size_y=300
